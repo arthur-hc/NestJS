@@ -7,7 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { Product } from './product.model';
+import { Products } from './product.model';
 import { ProductsService } from './products.service';
 
 @Controller('products')
@@ -15,27 +15,27 @@ export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
   @Get()
-  getAllProducts(): Product[] {
-    return this.productsService.getAllProducts();
+  async getAllProducts(): Promise<Products[]> {
+    return await this.productsService.getAllProducts();
   }
 
   @Get('/:id')
-  getProductById(@Param() params): Product {
-    return this.productsService.getProductById(Number(params.id)) || null;
+  async getProductById(@Param() params): Promise<Products> {
+    return await this.productsService.getProductById(params.id);
   }
 
   @Post()
-  createProduct(@Body() product): Product[] {
-    return this.productsService.createProduct(product);
+  async createProduct(@Body() product): Promise<Products> {
+    return await this.productsService.createProduct(product);
   }
 
   @Put('/:id')
-  updateProduct(@Param() params, @Body() product): Product {
-    return this.productsService.updateProduct(Number(params.id), product);
+  async updateProduct(@Param() params, @Body() product): Promise<[number]> {
+    return await this.productsService.updateProduct(Number(params.id), product);
   }
 
   @Delete('/:id')
-  deleteProduct(@Param() params): Product[] {
-    return this.productsService.deleteProduct(params.id);
+  async deleteProduct(@Param() params): Promise<number> {
+    return await this.productsService.deleteProduct(params.id);
   }
 }

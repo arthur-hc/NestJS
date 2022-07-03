@@ -1,7 +1,7 @@
 import { Table, Model, Column, DataType } from 'sequelize-typescript';
 
 @Table
-export class Product extends Model<Product> {
+export class Products extends Model<Products> {
   @Column({
     type: DataType.STRING(60),
     allowNull: false,

@@ -31,3 +31,7 @@ synchronize: true,
 - Dessa forma, ao startar o projeto, sempre criará tabelas de acordo com as entidades
 O SequelizeModule.forRoot suporta todas as configurações expostas pelo Sequelize, além de carregar configurações adicionais
 
+*** Configurações
+Para utilização de envs, é necessário instalar o nest config.
+Sua orientação estará na doc do nest. Após instalar e configurar a .env, adicionar as informações através do process.env em app.module
+

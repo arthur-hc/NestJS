@@ -1,42 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { Product } from './product.model';
+import { InjectModel } from '@nestjs/sequelize';
+import { Products } from './product.model';
 
 @Injectable()
 export class ProductsService {
-  constructor(private product: Product) {}
-  products: Product[] = [];
+  constructor(@InjectModel(Products) private productsModel: typeof Products) {}
 
-  async getAllProducts(): Promise<Product> {
-    return await this.product.get();
+  async getAllProducts(): Promise<Products[]> {
+    return await this.productsModel.findAll();
   }
 
-  getProductById(productId: number): Product {
-    const productIndex = this.products.findIndex(
-      (product) => product.id === productId,
-    );
-    return this.products[productIndex] || null;
+  async getProductById(productId: number): Promise<Products> {
+    return await this.productsModel.findByPk(productId);
   }
 
-  createProduct(product: Product): Product[] {
-    // const newProduct = new Product(product.code, product.name, product.price);
-    // newProduct.id = 123;
-    // this.products.push(newProduct);
-    return this.products;
+  async createProduct(product: Products): Promise<Products> {
+    return await this.productsModel.create(product);
   }
 
-  updateProduct(productId: number, product: Product): Product {
-    const productIndex = this.products.findIndex(
-      (product) => product.id === productId,
-    );
-    product.id = productId;
-    this.products[productIndex] = product;
-    return this.products[productIndex];
+  async updateProduct(productId: number, product: Products): Promise<[number]> {
+    return await this.productsModel.update(product, {
+      where: { id: productId },
+    });
   }
 
-  deleteProduct(id: number): Product[] {
-    this.products = this.products.filter(
-      (product) => product.id !== Number(id),
-    );
-    return this.products;
+  deleteProduct(id: number): Promise<number> {
+    return this.productsModel.destroy({ where: { id } });
   }
 }
