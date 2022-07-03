@@ -1,5 +1,7 @@
+import { Injectable } from '@nestjs/common';
 import { Product } from './product.model';
 
+@Injectable()
 export class ProductsService {
   products: Product[] = [];
 
@@ -7,8 +9,11 @@ export class ProductsService {
     return this.products;
   }
 
-  getProductById(): Product {
-    return this.products[0];
+  getProductById(productId: number): Product {
+    const productIndex = this.products.findIndex(
+      (product) => product.id === productId,
+    );
+    return this.products[productIndex] || null;
   }
 
   createProduct(product: Product): Product[] {
@@ -18,12 +23,12 @@ export class ProductsService {
     return this.products;
   }
 
-  updateProduct(product: Product): Product {
+  updateProduct(productId: number, product: Product): Product {
     const productIndex = this.products.findIndex(
-      (product) => product.id === Number(product.id),
+      (product) => product.id === productId,
     );
+    product.id = productId;
     this.products[productIndex] = product;
-    this.products[productIndex].id = product.id;
     return this.products[productIndex];
   }
 

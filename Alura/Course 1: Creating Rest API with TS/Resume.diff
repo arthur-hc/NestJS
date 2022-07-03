@@ -13,3 +13,9 @@ Permite acessar o corpo da requisição (ex: body.nome).
 
 > HttpCode(200)
 É opcional e define qual será o código de resposta da requisição.
+
+*** Criando um provider
+Criar um serviço e defini-lo como injetável através do decorator @Injectable() antes de sua classe.
+Essa operação indica confiança do controller no nest, e a responsabilidade de instanciar o service, fica à cargo do nest. Essa é a função da injestão de dependências e como funcionará em frameworks como NestJS.
+
+Após isso, em controller, importar o serviço e utilizá-lo como parâmetro do constructor.
