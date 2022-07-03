@@ -1,0 +1,37 @@
+*** Inicializando um projeto
+- nest new <nome do projeto>
+
+*** Adicionando uma nova rota
+Ao criar o novo controller, ele deve ser importado como controller no módulo do app.
+
+*** Decorators
+> @Params() params
+Permite acessar os parâmetros da requisição (ex: params.id).
+
+> @Body() body
+Permite acessar o corpo da requisição (ex: body.nome).
+
+> HttpCode(200)
+É opcional e define qual será o código de resposta da requisição.
+
+*** Criando um provider
+Criar um serviço e defini-lo como injetável através do decorator @Injectable() antes de sua classe.
+Essa operação indica confiança do controller no nest, e a responsabilidade de instanciar o service, fica à cargo do nest. Essa é a função da injestão de dependências e como funcionará em frameworks como NestJS.
+
+Após isso, em controller, importar o serviço e utilizá-lo como parâmetro do constructor.
+
+*** Utilizando SQL com Sequelize
+> doc de instalação
+
+> Em app.module, inserir informações, utilizando doc como base.
+Adicionar SequelizeModule.forFeature([Product]), informando o modelo.
+autoLoadModels: true,
+synchronize: true,
+
+- Dessa forma, ao startar o projeto, sempre criará tabelas de acordo com as entidades
+O SequelizeModule.forRoot suporta todas as configurações expostas pelo Sequelize, além de carregar configurações adicionais
+
+*** Configurações
+Para utilização de envs, é necessário instalar o nest config.
+Sua orientação estará na doc do nest. Após instalar e configurar a .env, adicionar as informações através do process.env em app.module
+
