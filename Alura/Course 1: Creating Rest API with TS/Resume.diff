@@ -19,3 +19,15 @@ Criar um serviço e defini-lo como injetável através do decorator @Injectable(
 Essa operação indica confiança do controller no nest, e a responsabilidade de instanciar o service, fica à cargo do nest. Essa é a função da injestão de dependências e como funcionará em frameworks como NestJS.
 
 Após isso, em controller, importar o serviço e utilizá-lo como parâmetro do constructor.
+
+*** Utilizando SQL com Sequelize
+> doc de instalação
+
+> Em app.module, inserir informações, utilizando doc como base.
+Adicionar SequelizeModule.forFeature([Product]), informando o modelo.
+autoLoadModels: true,
+synchronize: true,
+
+- Dessa forma, ao startar o projeto, sempre criará tabelas de acordo com as entidades
+O SequelizeModule.forRoot suporta todas as configurações expostas pelo Sequelize, além de carregar configurações adicionais
+

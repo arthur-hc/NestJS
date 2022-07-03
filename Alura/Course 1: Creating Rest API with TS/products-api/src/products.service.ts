@@ -3,10 +3,11 @@ import { Product } from './product.model';
 
 @Injectable()
 export class ProductsService {
+  constructor(private product: Product) {}
   products: Product[] = [];
 
-  getAllProducts(): Product[] {
-    return this.products;
+  async getAllProducts(): Promise<Product> {
+    return await this.product.get();
   }
 
   getProductById(productId: number): Product {
@@ -17,9 +18,9 @@ export class ProductsService {
   }
 
   createProduct(product: Product): Product[] {
-    const newProduct = new Product(product.code, product.name, product.price);
-    newProduct.id = 123;
-    this.products.push(newProduct);
+    // const newProduct = new Product(product.code, product.name, product.price);
+    // newProduct.id = 123;
+    // this.products.push(newProduct);
     return this.products;
   }
 
