@@ -1,2 +1,15 @@
 *** Inicializando um projeto
 - nest new <nome do projeto>
+
+*** Adicionando uma nova rota
+Ao criar o novo controller, ele deve ser importado como controller no módulo do app.
+
+*** Decorators
+> @Params() params
+Permite acessar os parâmetros da requisição (ex: params.id).
+
+> @Body() body
+Permite acessar o corpo da requisição (ex: body.nome).
+
+> HttpCode(200)
+É opcional e define qual será o código de resposta da requisição.
