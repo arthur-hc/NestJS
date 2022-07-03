@@ -24,7 +24,7 @@ export class ProductsService {
     });
   }
 
-  deleteProduct(id: number): Promise<number> {
-    return this.productsModel.destroy({ where: { id } });
+  async deleteProduct(id: number): Promise<number> {
+    return await this.productsModel.destroy({ where: { id } });
   }
 }
