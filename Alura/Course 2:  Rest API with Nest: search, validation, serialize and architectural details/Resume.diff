@@ -1,0 +1,7 @@
+*** @Injectable
+Através da injeção de dependência, a responsabilidade de instanciar Services, fica a cargo do nest.
+Assim, a classe que possuir esse serviço em seu constructor, poderá utilizá-lo sem instanciar explicitamente.
+
+*** Provider
+Toda classe com o decorator @Injectable
+
