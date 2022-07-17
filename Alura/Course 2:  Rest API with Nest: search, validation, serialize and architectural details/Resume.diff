@@ -5,3 +5,5 @@ Assim, a classe que possuir esse serviço em seu constructor, poderá utilizá-l
 *** Provider
 Toda classe com o decorator @Injectable
 
+*** Modularização
+Cada entidade, ao possuir seu próprio módulo, poderá ser referenciada apenas por ele no app.module.ts
