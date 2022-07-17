@@ -34,3 +34,24 @@ useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
 - Esses passos fazem com que o nest utilize esse container externo e alinhe com o class-validator.
 
+
+*** Interceptors 
+São classes providers que interceptam as requisições e podem alterar ou manipular os dados antes de serem enviados para o servidor ou devolvidos ao cliente.
+
+Com o decorator @Exclude({ toPlainOnly: true }) utilizado no dto, a informação será excluida na volta. Para que funcione, é preciso comunicar ao nest a utilização do interceptador, que neste caso será o nativo do próprio nest.
+Como é deseja-se tornar esse comportamento global, modificamos o app.module.
+
+O providers ficará assim:
+providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ClassSerializerInterceptor,
+    },
+  ],
+
+Caso esteja utilizando TypeORM, pode adicionar o select false na coluna
+
+
+*** Exception filters
+Captam e personalizam exceções que possam ocorrer.
+

@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { IsEmailAlreadyUsed } from '../decorators/unique-email.decorator';
 
@@ -14,5 +15,6 @@ export class CreateUserDto {
 
   @IsNotEmpty({ message: 'Password is required' })
   @IsString({ message: 'Password must be a string' })
+  @Exclude({ toPlainOnly: true })
   password: string;
 }
