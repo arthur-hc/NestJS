@@ -7,3 +7,15 @@ Toda classe com o decorator @Injectable
 
 *** Modularização
 Cada entidade, ao possuir seu próprio módulo, poderá ser referenciada apenas por ele no app.module.ts
+
+*** Libs para validação de inputs
+class-transformer
+class-validator
+
+*** Class validator
+Através da utilização dos decorators no dto, é possível validar os inputs de cada entidade.
+
+*** Pipes
+Pipes são utilizados para transformar/validar dados de entrada antes do controller
+
+Ao adicionar app.useGlobalPipes(new ValidationPipe({ transform: true })), a aplicação passará a validar os dados de acordo com os dto configurados.
