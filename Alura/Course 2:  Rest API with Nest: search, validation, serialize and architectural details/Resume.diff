@@ -1,0 +1,57 @@
+*** @Injectable
+Através da injeção de dependência, a responsabilidade de instanciar Services, fica a cargo do nest.
+Assim, a classe que possuir esse serviço em seu constructor, poderá utilizá-lo sem instanciar explicitamente.
+
+*** Provider
+Toda classe com o decorator @Injectable
+
+*** Modularização
+Cada entidade, ao possuir seu próprio módulo, poderá ser referenciada apenas por ele no app.module.ts
+
+*** Libs para validação de inputs
+class-transformer
+class-validator
+
+*** Class validator
+Através da utilização dos decorators no dto, é possível validar os inputs de cada entidade.
+
+*** Pipes
+Pipes são utilizados para transformar/validar dados de entrada antes do controller
+
+Ao adicionar app.useGlobalPipes(new ValidationPipe({ transform: true })), a aplicação passará a validar os dados de acordo com os dto configurados.
+
+
+*** Decorator de validação personalizado
+Em unique-email.decorator.ts, criamos um decorator para validar o email. A classe no arquivo, contém a regra de negócio. Em seguida, a função invocada, recebe o email e verifica se ele já existe na base, retornando true ou false. Assim, ao tentar cadastrar um e-mail já existente, o decorator retornará um erro.
+
+!!! ATENÇÃO !!!
+A COMBINAÇÃO DE NEST COM CLASS-VALIDATOR POSSUI UMA LIMITAÇÃO TÉCNICA.
+O DECORATOR UTILIZADO PARA VALIDAÇÃO, É EXECUTADO EM UM CONTAINER A PARTE DO NEST. ASSIM, A INJEÇÃO DE DEPEDÊNCIA NÃO FUNCIONA. PARA SOLUCIONAR ISSO:
+1 - TORNE O DECORATOR INJETÁVEL (@Injectable())
+2 - ADICIONE ELE AO PROVIDER DE USERS, IMPORTANDO A CONTRAINT NO MÓDULO E ADICIONANDO AO ARRAY DE PROVIDERS 
+3 - EM main.ts, ADICONE A EXECUÇÃO DO APP 
+useContainer(app.select(AppModule), { fallbackOnErrors: true });
+
+- Esses passos fazem com que o nest utilize esse container externo e alinhe com o class-validator.
+
+
+*** Interceptors 
+São classes providers que interceptam as requisições e podem alterar ou manipular os dados antes de serem enviados para o servidor ou devolvidos ao cliente.
+
+Com o decorator @Exclude({ toPlainOnly: true }) utilizado no dto, a informação será excluida na volta. Para que funcione, é preciso comunicar ao nest a utilização do interceptador, que neste caso será o nativo do próprio nest.
+Como é deseja-se tornar esse comportamento global, modificamos o app.module.
+
+O providers ficará assim:
+providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ClassSerializerInterceptor,
+    },
+  ],
+
+Caso esteja utilizando TypeORM, pode adicionar o select false na coluna
+
+
+*** Exception filters
+Captam e personalizam exceções que possam ocorrer.
+
